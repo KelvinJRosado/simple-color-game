@@ -2,28 +2,37 @@
   <div class="card-container" :class="{ flipped }" @click="flipCard">
     <div class="card">
       <div class="card-face card-front">
-        <div class="color-visual" :style="{ backgroundColor: frontText }"></div>
+        <div
+          class="color-visual"
+          :style="{ backgroundColor: frontText[currentLang] }"
+        ></div>
       </div>
       <div class="card-face card-back">
-        <h2 class="card-header">{{ backText }}</h2>
+        <h2 class="card-header">{{ backText[currentLang] }}</h2>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { ref, inject, computed } from "vue";
 const language = inject("language", ref<"en" | "es">("en"));
+
+type LangText = { en: string; es: string };
+
 defineProps<{
-  frontHeader: string;
-  frontText: string;
-  backHeader: string;
-  backText: string;
+  frontHeader: LangText;
+  frontText: LangText;
+  backHeader: LangText;
+  backText: LangText;
 }>();
+
 const flipped = ref(false);
 function flipCard() {
   flipped.value = !flipped.value;
 }
+
+const currentLang = computed(() => language?.value || "en");
 </script>
 
 <style scoped>
