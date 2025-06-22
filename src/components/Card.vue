@@ -2,12 +2,12 @@
   <div class="card-container" :class="{ flipped }" @click="flipCard">
     <div class="card">
       <div class="card-face card-front">
-        <h2 class="card-header">Card Header</h2>
-        <p class="card-body">This is some placeholder text inside the card.</p>
+        <h2 class="card-header">{{ frontHeader }}</h2>
+        <p class="card-body">{{ frontText }}</p>
       </div>
       <div class="card-face card-back">
-        <h2 class="card-header">Back Side</h2>
-        <p class="card-body">This is the back of the card!</p>
+        <h2 class="card-header">{{ backHeader }}</h2>
+        <p class="card-body">{{ backText }}</p>
       </div>
     </div>
   </div>
@@ -15,6 +15,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+const props = defineProps<{
+  frontHeader: string;
+  frontText: string;
+  backHeader: string;
+  backText: string;
+}>();
 const flipped = ref(false);
 function flipCard() {
   flipped.value = !flipped.value;
