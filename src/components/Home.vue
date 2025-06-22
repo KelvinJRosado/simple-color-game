@@ -4,9 +4,9 @@ import Card from "./Card.vue";
 
 <template>
   <Card
-    frontHeader="Card Header"
-    frontText="This is some placeholder text inside the card."
-    backHeader="Back Side"
-    backText="This is the back of the card!"
+    frontHeader="Color"
+    frontText="red"
+    backHeader="Color Name"
+    backText="Red"
   />
 </template>

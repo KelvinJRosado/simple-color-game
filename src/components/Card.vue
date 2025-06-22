@@ -2,12 +2,10 @@
   <div class="card-container" :class="{ flipped }" @click="flipCard">
     <div class="card">
       <div class="card-face card-front">
-        <h2 class="card-header">{{ frontHeader }}</h2>
-        <p class="card-body">{{ frontText }}</p>
+        <div class="color-visual" :style="{ backgroundColor: frontText }"></div>
       </div>
       <div class="card-face card-back">
-        <h2 class="card-header">{{ backHeader }}</h2>
-        <p class="card-body">{{ backText }}</p>
+        <h2 class="card-header">{{ backText }}</h2>
       </div>
     </div>
   </div>
@@ -73,5 +71,13 @@ function flipCard() {
 .card-body {
   text-align: center;
   color: #555;
+}
+.color-visual {
+  width: 100px;
+  height: 100px;
+  border-radius: 0; /* Changed from 50% to 0 for square */
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid #eee;
 }
 </style>
