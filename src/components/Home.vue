@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Card from "./Card.vue";
 import LanguageToggle from "./LanguageToggle.vue";
+import Grid from "./Grid.vue";
 import { ref, provide } from "vue";
 
 const language = ref<"en" | "es">("en");
@@ -32,17 +33,19 @@ function handleFlip() {
       :language="pendingLanguage"
       @update:language="handleLanguageChange"
     />
-    <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
-      <Card
-        v-if="showCard"
-        :flipped="flipped"
-        @flip="handleFlip"
-        frontHeader="Color"
-        frontText="red"
-        :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-        :backText="{ en: 'Red', es: 'Rojo' }"
-      />
-    </Transition>
+    <Grid>
+      <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
+        <Card
+          v-if="showCard"
+          :flipped="flipped"
+          @flip="handleFlip"
+          frontHeader="Color"
+          frontText="red"
+          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
+          :backText="{ en: 'Red', es: 'Rojo' }"
+        />
+      </Transition>
+    </Grid>
   </div>
 </template>
 
