@@ -12,7 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, inject } from "vue";
+const language = inject("language", ref<"en" | "es">("en"));
 defineProps<{
   frontHeader: string;
   frontText: string;
