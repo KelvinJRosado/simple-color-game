@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-const props = defineProps<{
+defineProps<{
   frontHeader: string;
   frontText: string;
   backHeader: string;
