@@ -2,28 +2,32 @@
   <div class="card-container" :class="{ flipped }" @click="flipCard">
     <div class="card">
       <div class="card-face card-front">
-        <h2 class="card-header">{{ frontHeader }}</h2>
-        <p class="card-body">{{ frontText }}</p>
+        <div class="color-visual" :style="{ backgroundColor: frontText }"></div>
       </div>
       <div class="card-face card-back">
-        <h2 class="card-header">{{ backHeader }}</h2>
-        <p class="card-body">{{ backText }}</p>
+        <h2 class="card-header">{{ backText[currentLang as "en" | "es"] }}</h2>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { inject, computed, ref } from "vue";
+const language = inject("language", ref<"en" | "es">("en"));
+
 defineProps<{
   frontHeader: string;
   frontText: string;
-  backHeader: string;
-  backText: string;
+  backHeader: { en: string; es: string };
+  backText: { en: string; es: string };
+  flipped: boolean;
 }>();
-const flipped = ref(false);
+const emit = defineEmits(["flip"]);
+
+const currentLang = computed(() => (language?.value === "es" ? "es" : "en"));
+
 function flipCard() {
-  flipped.value = !flipped.value;
+  emit("flip");
 }
 </script>
 
@@ -73,5 +77,13 @@ function flipCard() {
 .card-body {
   text-align: center;
   color: #555;
+}
+.color-visual {
+  width: 100px;
+  height: 100px;
+  border-radius: 0; /* Changed from 50% to 0 for square */
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid #eee;
 }
 </style>
