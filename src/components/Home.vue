@@ -6,17 +6,23 @@ import { ref, provide } from "vue";
 const language = ref<"en" | "es">("en");
 provide("language", language);
 
-const animating = ref(false);
 const pendingLanguage = ref<"en" | "es">(language.value);
+const showCard = ref(true);
+const flipped = ref(false);
 
 function handleLanguageChange(val: "en" | "es") {
   if (val === language.value) return;
-  animating.value = true;
+  showCard.value = false; // trigger leave
   pendingLanguage.value = val;
-  setTimeout(() => {
-    language.value = pendingLanguage.value;
-    animating.value = false;
-  }, 500); // duration matches CSS
+}
+
+function onAfterLeave() {
+  language.value = pendingLanguage.value;
+  showCard.value = true; // trigger enter
+}
+
+function handleFlip() {
+  flipped.value = !flipped.value;
 }
 </script>
 
@@ -26,11 +32,13 @@ function handleLanguageChange(val: "en" | "es") {
       :language="pendingLanguage"
       @update:language="handleLanguageChange"
     />
-    <Transition name="fade-scale" mode="out-in">
+    <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
       <Card
-        :key="language"
-        :frontHeader="{ en: 'Color', es: 'Color' }"
-        :frontText="{ en: 'red', es: 'rojo' }"
+        v-if="showCard"
+        :flipped="flipped"
+        @flip="handleFlip"
+        frontHeader="Color"
+        frontText="red"
         :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
         :backText="{ en: 'Red', es: 'Rojo' }"
       />
