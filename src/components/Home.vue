@@ -30,6 +30,25 @@ const cards = [
     backHeader: { en: "Color Name", es: "Nombre del color" },
     backText: { en: "Yellow", es: "Amarillo" },
   },
+  // Secondary colors
+  {
+    frontHeader: "Color",
+    frontText: "green",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Green", es: "Verde" },
+  },
+  {
+    frontHeader: "Color",
+    frontText: "orange",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Orange", es: "Anaranjado" },
+  },
+  {
+    frontHeader: "Color",
+    frontText: "purple",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Purple", es: "Violeta" },
+  },
 ];
 
 // Each card has its own flip state
