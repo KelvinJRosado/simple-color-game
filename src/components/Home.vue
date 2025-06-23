@@ -9,7 +9,31 @@ provide("language", language);
 
 const pendingLanguage = ref<"en" | "es">(language.value);
 const showCard = ref(true);
-const flipped = ref(false);
+
+// Card data
+const cards = [
+  {
+    frontHeader: "Color",
+    frontText: "red",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Red", es: "Rojo" },
+  },
+  {
+    frontHeader: "Color",
+    frontText: "blue",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Blue", es: "Azul" },
+  },
+  {
+    frontHeader: "Color",
+    frontText: "yellow",
+    backHeader: { en: "Color Name", es: "Nombre del color" },
+    backText: { en: "Yellow", es: "Amarillo" },
+  },
+];
+
+// Each card has its own flip state
+const flippedStates = ref(cards.map(() => false));
 
 function handleLanguageChange(val: "en" | "es") {
   if (val === language.value) return;
@@ -22,8 +46,8 @@ function onAfterLeave() {
   showCard.value = true; // trigger enter
 }
 
-function handleFlip() {
-  flipped.value = !flipped.value;
+function handleFlip(index: number) {
+  flippedStates.value[index] = !flippedStates.value[index];
 }
 </script>
 
@@ -36,28 +60,14 @@ function handleFlip() {
     <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
       <Grid v-if="showCard">
         <Card
-          :flipped="flipped"
-          @flip="handleFlip"
-          frontHeader="Color"
-          frontText="red"
-          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-          :backText="{ en: 'Red', es: 'Rojo' }"
-        />
-        <Card
-          :flipped="flipped"
-          @flip="handleFlip"
-          frontHeader="Color"
-          frontText="blue"
-          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-          :backText="{ en: 'Blue', es: 'Azul' }"
-        />
-        <Card
-          :flipped="flipped"
-          @flip="handleFlip"
-          frontHeader="Color"
-          frontText="yellow"
-          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-          :backText="{ en: 'Yellow', es: 'Amarillo' }"
+          v-for="(card, idx) in cards"
+          :key="idx"
+          :flipped="flippedStates[idx]"
+          @flip="() => handleFlip(idx)"
+          :frontHeader="card.frontHeader"
+          :frontText="card.frontText"
+          :backHeader="card.backHeader"
+          :backText="card.backText"
         />
       </Grid>
     </Transition>
