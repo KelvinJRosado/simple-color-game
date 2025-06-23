@@ -35,7 +35,7 @@ function handleFlip() {
     />
     <Grid>
       <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
-        <div v-if="showCard">
+        <div v-if="showCard" class="card-row">
           <Card
             :flipped="flipped"
             @flip="handleFlip"
