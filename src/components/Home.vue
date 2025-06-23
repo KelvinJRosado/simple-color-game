@@ -44,14 +44,16 @@ function handleFlip() {
           :backText="{ en: 'Red', es: 'Rojo' }"
         />
         <Card
-          :flipped="false"
+          :flipped="flipped"
+          @flip="handleFlip"
           frontHeader="Color"
           frontText="blue"
           :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
           :backText="{ en: 'Blue', es: 'Azul' }"
         />
         <Card
-          :flipped="false"
+          :flipped="flipped"
+          @flip="handleFlip"
           frontHeader="Color"
           frontText="yellow"
           :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
