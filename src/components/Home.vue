@@ -33,34 +33,32 @@ function handleFlip() {
       :language="pendingLanguage"
       @update:language="handleLanguageChange"
     />
-    <Grid>
-      <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
-        <div v-if="showCard" class="card-row">
-          <Card
-            :flipped="flipped"
-            @flip="handleFlip"
-            frontHeader="Color"
-            frontText="red"
-            :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-            :backText="{ en: 'Red', es: 'Rojo' }"
-          />
-          <Card
-            :flipped="false"
-            frontHeader="Color"
-            frontText="blue"
-            :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-            :backText="{ en: 'Blue', es: 'Azul' }"
-          />
-          <Card
-            :flipped="false"
-            frontHeader="Color"
-            frontText="yellow"
-            :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
-            :backText="{ en: 'Yellow', es: 'Amarillo' }"
-          />
-        </div>
-      </Transition>
-    </Grid>
+    <Transition name="fade-scale" mode="out-in" @after-leave="onAfterLeave">
+      <Grid v-if="showCard">
+        <Card
+          :flipped="flipped"
+          @flip="handleFlip"
+          frontHeader="Color"
+          frontText="red"
+          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
+          :backText="{ en: 'Red', es: 'Rojo' }"
+        />
+        <Card
+          :flipped="false"
+          frontHeader="Color"
+          frontText="blue"
+          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
+          :backText="{ en: 'Blue', es: 'Azul' }"
+        />
+        <Card
+          :flipped="false"
+          frontHeader="Color"
+          frontText="yellow"
+          :backHeader="{ en: 'Color Name', es: 'Nombre del color' }"
+          :backText="{ en: 'Yellow', es: 'Amarillo' }"
+        />
+      </Grid>
+    </Transition>
   </div>
 </template>
 
